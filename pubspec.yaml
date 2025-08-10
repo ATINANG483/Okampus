@@ -1,0 +1,45 @@
+name: okampus
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  font_awesome_flutter: ^10.9.0
+  share_plus: ^7.2.1
+  qr_code_scanner: ^1.0.1
+  url_launcher: ^6.1.7
+  syncfusion_flutter_pdfviewer: ^30.2.4
+  carousel_slider: ^5.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/qr.jpg
+    - assets/promo.png
+    - assets/logo.png
+    - assets/cours.jpg
+    - assets/chambre1.jpg
+    - assets/chambre2.jpg
+    - assets/chambre3.jpg
+    - assets/chambre4.jpg
+    - assets/reunion.jpg
+    - assets/resultat.jpg
+    - assets/course1.jpg
+    - assets/course2.jpg
+    - assets/course3.png
+
+    - assets/cours1.pdf
+    - assets/cours2.pdf
+    - assets/examen1.pdf
+    - assets/rattrapage1.pdf
