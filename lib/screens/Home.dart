@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.lightBlue),
         title: Image.asset('assets/logo.png', height: 32),
         actions: [
           IconButton(
@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 8),
-                        Text('Mes notes', style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+                        Text('Mes notes', style: TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ),
@@ -222,7 +222,7 @@ class HomeScreen extends StatelessWidget {
       child: const Text(
         'Voir plus',
         style: TextStyle(
-          color: Colors.blueAccent,
+          color: Colors.lightBlue,
           fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
@@ -269,7 +269,7 @@ class HomeScreen extends StatelessWidget {
       child: const Text(
         'Voir plus',
         style: TextStyle(
-          color: Colors.blueAccent,
+          color: Colors.lightBlue,
           fontSize: 13,
           fontWeight: FontWeight.bold,
         ),
@@ -296,7 +296,7 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
   backgroundColor: const Color(0xFFF0F0F0),
-  selectedItemColor: Colors.orange,
+  selectedItemColor: Colors.lightBlue,
   unselectedItemColor: Colors.black,
   type: BottomNavigationBarType.fixed,
   currentIndex: 0,
@@ -338,7 +338,7 @@ class _ActionButton extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.orange, size: 28),
+          Icon(icon, color: Colors.lightBlue, size: 28),
           const SizedBox(height: 8),
           Text(label, textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: fontSize, fontWeight: FontWeight.bold)),
         ],
@@ -366,9 +366,9 @@ class _UECard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
-              Text('Cours', style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold)),
-              Text('TD', style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold)),
-              Text('Examens', style: TextStyle(color: Colors.orange, fontSize: 12, fontWeight: FontWeight.bold)),
+              Text('Cours', style: TextStyle(color: Colors.lightBlue, fontSize: 12, fontWeight: FontWeight.bold)),
+              Text('TD', style: TextStyle(color: Colors.lightBlue, fontSize: 12, fontWeight: FontWeight.bold)),
+              Text('Examens', style: TextStyle(color: Colors.lightBlue, fontSize: 12, fontWeight: FontWeight.bold)),
             ],
           ),
         ],
@@ -422,7 +422,7 @@ class _CategoryCard extends StatelessWidget {
         children: [
           Text(title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           const SizedBox(height: 6),
-          Text(note, style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+          Text(note, style: const TextStyle(color: Colors.lightBlue, fontWeight: FontWeight.bold)),
           const SizedBox(height: 6),
           Text(communique, style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold)),
         ],

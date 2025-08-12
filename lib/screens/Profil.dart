@@ -7,12 +7,12 @@ class ProfilScreen extends StatelessWidget {
 
   Widget buildListTile(IconData icon, String title, VoidCallback onTap) {
     return ListTile(
-      leading: Icon(icon, color: Colors.orange),
+      leading: Icon(icon, color: Colors.lightBlue),
       title: Text(
         title,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.orange),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.lightBlue),
       onTap: onTap,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -48,19 +48,19 @@ class ProfilScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.orange),
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
             onPressed: () {
               Navigator.pushNamed(context, '/recherche');
             },
           ),
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.orange),
+            icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
             onPressed: () {
               Navigator.pushNamed(context, '/notifications');
             },
           ),
           IconButton(
-            icon: const Icon(Icons.help_outline, color: Colors.orange),
+            icon: const Icon(Icons.help_outline, color: Colors.lightBlue),
             onPressed: () {
               Navigator.pushNamed(context, '/assistance');
             },
@@ -87,7 +87,7 @@ class ProfilScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 30,
                   backgroundImage: AssetImage('assets/qr.jpg'), // ← image QR
                 ),

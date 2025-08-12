@@ -83,26 +83,20 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.lightBlueAccent), // Bleu ciel
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.help_outline),
-            onPressed: () {
-              // Action assistance
-            },
+            icon: const Icon(Icons.help_outline, color: Colors.lightBlueAccent),
+            onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.chat_bubble_outline),
-            onPressed: () {
-              // Action chatbot
-            },
+            icon: const Icon(Icons.chat_bubble_outline, color: Colors.lightBlueAccent),
+            onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Action recherche
-            },
+            icon: const Icon(Icons.search, color: Colors.lightBlueAccent),
+            onPressed: () {},
           ),
         ],
       ),
@@ -129,7 +123,6 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Carousel avec clic sur image
                 Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
@@ -172,8 +165,7 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
                             margin: const EdgeInsets.symmetric(horizontal: 3),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color:
-                                  isActive ? Colors.white : Colors.white54,
+                              color: isActive ? Colors.white : Colors.white54,
                             ),
                           );
                         }).toList(),
@@ -193,7 +185,7 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
                           Text(
                             "${chambre['lieu']} • ${chambre['type']}",
                             style: const TextStyle(
-                                color: Colors.purple,
+                                color: Colors.lightBlueAccent,
                                 fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(width: 8),
@@ -204,7 +196,7 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
                       Text(
                         "${chambre['prix']} FCFA/mois",
                         style: const TextStyle(
-                            color: Colors.teal,
+                            color: Colors.lightBlueAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
@@ -220,12 +212,13 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
                         children: [
                           Expanded(
                             child: OutlinedButton.icon(
-                              icon: const Icon(Icons.phone, color: Colors.blue),
+                              icon: const Icon(Icons.phone,
+                                  color: Colors.lightBlueAccent),
                               label: const Text(
                                 "Contacter",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue),
+                                    color: Colors.lightBlueAccent),
                               ),
                               onPressed: () {
                                 _appelerNumero("+237688080882");
@@ -236,12 +229,12 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
                           Expanded(
                             child: OutlinedButton.icon(
                               icon: const Icon(Icons.location_on,
-                                  color: Colors.green),
+                                  color: Colors.lightBlueAccent),
                               label: const Text(
                                 "Position",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.green),
+                                    color: Colors.lightBlueAccent),
                               ),
                               onPressed: () {
                                 _ouvrirLocalisation(lat, lng);

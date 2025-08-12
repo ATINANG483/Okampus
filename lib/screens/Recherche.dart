@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RechercheScreen extends StatefulWidget {
-  const RechercheScreen({Key? key}) : super(key: key);
+  const RechercheScreen({super.key});
 
   @override
   State<RechercheScreen> createState() => _RechercheScreenState();
@@ -30,13 +30,13 @@ class _RechercheScreenState extends State<RechercheScreen> {
             Expanded(
               child: TextField(
                 controller: _controller,
-                cursorColor: Colors.orange,
+                cursorColor: Colors.lightBlue,
                 decoration: const InputDecoration(
                   hintText: 'Recherche',
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange, width: 2),
+                    borderSide: BorderSide(color: Colors.lightBlue, width: 2),
                   ),
                 ),
                 style: TextStyle(color: Colors.black),
@@ -45,13 +45,13 @@ class _RechercheScreenState extends State<RechercheScreen> {
             IconButton(
               icon: const Icon(Icons.search, color: Colors.black),
               onPressed: () {
-                FocusScope.of(context).unfocus(); // Ferme le clavier
+                FocusScope.of(context).unfocus();
               },
             ),
           ],
         ),
       ),
-      body: const SizedBox(), // Corps vide comme sur l'image
+      body: const SizedBox(),
     );
   }
 }

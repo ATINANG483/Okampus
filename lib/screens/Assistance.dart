@@ -11,7 +11,7 @@ class AssistanceScreen extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
-        color: const Color(0xFFFDFDFD), // Blanc doux
+        color: const Color(0xFFFDFDFD),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -23,12 +23,12 @@ class AssistanceScreen extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        leading: Icon(icon, color: Colors.orange),
+        leading: Icon(icon, color: Colors.lightBlue),
         title: Text(
           title,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.lightBlue),
         onTap: onTap,
       ),
     );
@@ -37,7 +37,7 @@ class AssistanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), // Fond gris clair
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         title: const Text('Assistance'),
         backgroundColor: Colors.white,
