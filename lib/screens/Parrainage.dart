@@ -25,25 +25,36 @@ class ParrainageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: const Color(0xFFF5F5F5), // Fond gris clair sur toute la page
       appBar: AppBar(
-        title: const Text('Parrainage',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.white, // Fond blanc uniquement sur la barre du haut
         elevation: 0,
         leading: const BackButton(color: Colors.black),
+        title: const Text(
+          'Parrainage',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18, // taille réduite pour que tout soit visible
+          ),
+        ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
+            onPressed: () {
+              // Action recherche ici
+            },
+          ),
           IconButton(
             icon: Stack(
               children: [
-                const Icon(Icons.notifications_none, color: Colors.orange),
+                const Icon(Icons.notifications_none, color: Colors.lightBlue),
                 Positioned(
                   top: 0,
                   right: 0,
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: const BoxDecoration(
-                      color: Colors.orange,
+                      color: Colors.lightBlue,
                       shape: BoxShape.circle,
                     ),
                     child: const Text(
@@ -62,16 +73,13 @@ class ParrainageScreen extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.settings, color: Colors.orange),
+            icon: const Icon(Icons.settings, color: Colors.lightBlue),
             onPressed: () {
-              // Action paramètres
+              // Action paramètres ici
             },
           ),
           IconButton(
-            icon: const CircleAvatar(
-              backgroundColor: Colors.grey,
-              child: Icon(Icons.person, color: Colors.white),
-            ),
+            icon: const Icon(Icons.account_circle, color: Colors.lightBlue, size: 26), // juste la tête, taille réduite
             onPressed: () {
               Navigator.push(
                 context,
@@ -146,7 +154,6 @@ class ParrainageScreen extends StatelessWidget {
                   question: 'Puis-je suivre mes filleuls ?',
                   answer: 'Oui, tu peux suivre l\'activité de tes filleuls depuis ton espace personnel.',
                 ),
-                
               ],
             ),
             const SizedBox(height: 20),
@@ -209,7 +216,7 @@ class ParrainageScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.orange)),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.lightBlue)),
           const SizedBox(height: 12),
           ...children,
         ],

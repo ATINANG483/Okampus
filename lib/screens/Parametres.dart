@@ -152,10 +152,13 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5), // gris clair général (en complément du dégradé)
       appBar: AppBar(
-        leading: const BackButton(),
-        title: const Text('Paramètres',
-            style: TextStyle(fontWeight: FontWeight.bold)),
+        leading: const BackButton(color: Colors.black),
+        title: const Text(
+          'Paramètres',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.lightBlue),
@@ -165,8 +168,7 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
             children: [
               IconButton(
                 icon: const Icon(Icons.notifications, color: Colors.lightBlue),
-                onPressed: () =>
-                    Navigator.pushNamed(context, '/notifications'),
+                onPressed: () => Navigator.pushNamed(context, '/notifications'),
               ),
               Positioned(
                 right: 8,
@@ -191,34 +193,44 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
           ),
         ],
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
         elevation: 0,
       ),
-      backgroundColor: Colors.grey[100],
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-        children: [
-          _buildParamCard(
-            icon: Icons.public,
-            title: 'Langue ($_selectedLangue)',
-            onTap: _changerLangue,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFE6F0FA), // bleu ciel très clair
+              Colors.white,
+            ],
           ),
-          _buildParamCard(
-            icon: Icons.brightness_6_outlined,
-            title: 'Apparence ($_selectedMode)',
-            onTap: _changerApparence,
-          ),
-          _buildParamCard(
-            icon: Icons.info_outline,
-            title: 'À propos de OKampus',
-            onTap: _afficherAPropos,
-          ),
-          _buildParamCard(
-            icon: Icons.qr_code_scanner,
-            title: 'Scanner le code QR',
-            onTap: _scannerTickets,
-          ),
-        ],
+        ),
+        child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          children: [
+            _buildParamCard(
+              icon: Icons.public,
+              title: 'Langue ($_selectedLangue)',
+              onTap: _changerLangue,
+            ),
+            _buildParamCard(
+              icon: Icons.brightness_6_outlined,
+              title: 'Apparence ($_selectedMode)',
+              onTap: _changerApparence,
+            ),
+            _buildParamCard(
+              icon: Icons.info_outline,
+              title: 'À propos de OKampus',
+              onTap: _afficherAPropos,
+            ),
+            _buildParamCard(
+              icon: Icons.qr_code_scanner,
+              title: 'Scanner le code QR',
+              onTap: _scannerTickets,
+            ),
+          ],
+        ),
       ),
     );
   }

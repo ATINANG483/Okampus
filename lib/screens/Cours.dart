@@ -4,69 +4,57 @@ class CoursesScreen extends StatelessWidget {
   final List<Map<String, dynamic>> courses = [
     {
       "image": "assets/course1.jpg",
-      "discount": "-18%",
-      "tags": ["Design", "Intermediate"],
-      "title": "Mobile App Design with Material You",
-      "team": "Teatcha Team",
-      "duration": "24 hours",
-      "rating": 4.7,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Algorithmes avancés en Python",
+      "professor": "Pr. Ndongo Pierre",
+      "time": "08h00 - 10h00",
     },
     {
       "image": "assets/course2.jpg",
-      "discount": "-23%",
-      "tags": ["Design", "Advanced"],
-      "title": "Design Thinking for Digital Products",
-      "team": "Teatcha Team",
-      "duration": "30 hours",
-      "rating": 4.8,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Réseaux Informatiques",
+      "professor": "Dr. Mvondo Alain",
+      "time": "10h15 - 12h15",
     },
     {
       "image": "assets/course3.png",
-      "discount": "-17%",
-      "tags": ["Design", "Intermediate"],
-      "title": "UI Animation and Motion Design in Flutter",
-      "team": "Teatcha Team",
-      "duration": "22 hours",
-      "rating": 4.6,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Développement Mobile Flutter",
+      "professor": "Mme. Essomba Claire",
+      "time": "13h30 - 15h30",
     },
-    {
+     {
       "image": "assets/course1.jpg",
-      "discount": "-18%",
-      "tags": ["Design", "Intermediate"],
-      "title": "Mobile App Design with Material You",
-      "team": "Teatcha Team",
-      "duration": "24 hours",
-      "rating": 4.7,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Algorithmes avancés en Python",
+      "professor": "Pr. Ndongo Pierre",
+      "time": "08h00 - 10h00",
     },
     {
       "image": "assets/course2.jpg",
-      "discount": "-23%",
-      "tags": ["Design", "Advanced"],
-      "title": "Design Thinking for Digital Products",
-      "team": "Teatcha Team",
-      "duration": "30 hours",
-      "rating": 4.8,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Réseaux Informatiques",
+      "professor": "Dr. Mvondo Alain",
+      "time": "10h15 - 12h15",
     },
     {
       "image": "assets/course3.png",
-      "discount": "-17%",
-      "tags": ["Design", "Intermediate"],
-      "title": "UI Animation and Motion Design in Flutter",
-      "team": "Teatcha Team",
-      "duration": "22 hours",
-      "rating": 4.6,
-      "price": "Ouvrir",
-      "oldPrice": "Information"
+      "title": "Développement Mobile Flutter",
+      "professor": "Mme. Essomba Claire",
+      "time": "13h30 - 15h30",
+    },
+     {
+      "image": "assets/course1.jpg",
+      "title": "Algorithmes avancés en Python",
+      "professor": "Pr. Ndongo Pierre",
+      "time": "08h00 - 10h00",
+    },
+    {
+      "image": "assets/course2.jpg",
+      "title": "Réseaux Informatiques",
+      "professor": "Dr. Mvondo Alain",
+      "time": "10h15 - 12h15",
+    },
+    {
+      "image": "assets/course3.png",
+      "title": "Développement Mobile Flutter",
+      "professor": "Mme. Essomba Claire",
+      "time": "13h30 - 15h30",
     },
   ];
 
@@ -75,155 +63,128 @@ class CoursesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
 
-      // AppBar avec les 4 icônes
+      // AppBar
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
+        title: const Text(
           "Cours",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-      actions: [
-  IconButton(
-    icon: Icon(Icons.search, color: Colors.lightBlue),
-    onPressed: () {},
-  ),
-  IconButton(
-    icon: Icon(Icons.notifications, color: Colors.lightBlue),
-    onPressed: () {},
-  ),
-  IconButton(
-    icon: Icon(Icons.chat, color: Colors.lightBlue),
-    onPressed: () {},
-  ),
-  IconButton(
-    icon: Icon(Icons.person, color: Colors.lightBlue),
-    onPressed: () {},
-  ),
-],
-
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.chat, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.person, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+        ],
       ),
 
       // Liste des cours
       body: ListView.builder(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         itemCount: courses.length,
         itemBuilder: (context, index) {
           final course = courses[index];
-          return Card(
-            shape: RoundedRectangleBorder(
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: Colors.lightBlue.withOpacity(0.05), // Bleu très clair
               borderRadius: BorderRadius.circular(12),
             ),
-            margin: EdgeInsets.only(bottom: 16),
-            elevation: 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12),
-                        bottomLeft: Radius.circular(12),
-                      ),
-                      child: Image.asset(
-                        course["image"],
-                        height: 110,
-                        width: 110,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      top: 6,
-                      left: 6,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Text(
-                          course["discount"],
-                          style:
-                              TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  ],
+                // Image du cours
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                  child: Image.asset(
+                    course["image"],
+                    height: 110,
+                    width: 110,
+                    fit: BoxFit.cover,
+                  ),
                 ),
+
+                // Infos du cours
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Wrap(
-                          spacing: 6,
-                          children: course["tags"].map<Widget>((tag) {
-                            return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: tag == "Design"
-                                    ? Colors.pink[100]
-                                    : Colors.orange[100],
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Text(
-                                tag,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: tag == "Design"
-                                      ? Colors.pink
-                                      : Colors.orange,
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                        SizedBox(height: 4),
+                        // Nom du cours
                         Text(
                           course["title"],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                           ),
                         ),
-                        SizedBox(height: 2),
-                        Text(
-                          course["team"],
-                          style:
-                              TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
+
+                        // Professeur
                         Row(
                           children: [
-                            Icon(Icons.access_time,
-                                size: 14, color: Colors.grey),
-                            SizedBox(width: 4),
-                            Text(course["duration"],
-                                style: TextStyle(fontSize: 12)),
+                            const Icon(Icons.person, size: 14, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Text(
+                              course["professor"],
+                              style: const TextStyle(color: Colors.grey, fontSize: 12),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
+
+                        // Horaire
                         Row(
                           children: [
-                            Icon(Icons.star,
-                                size: 14, color: Colors.amber),
-                            SizedBox(width: 4),
-                            Text(course["price"],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue)),
-                            SizedBox(width: 6),
+                            const Icon(Icons.access_time, size: 14, color: Colors.grey),
+                            const SizedBox(width: 4),
                             Text(
-                              course["oldPrice"],
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 12,
-                                decoration:
-                                    TextDecoration.lineThrough,
+                              course["time"],
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+
+                        // Étoiles + Ouvrir
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: List.generate(4, (i) {
+                                return const Icon(Icons.star, size: 14, color: Colors.amber);
+                              }),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Ouverture du cours : ${course['title']}")),
+                                );
+                              },
+                              child: const Text(
+                                "Ouvrir",
+                                style: TextStyle(
+                                  color: Colors.lightBlue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
                               ),
                             ),
                           ],

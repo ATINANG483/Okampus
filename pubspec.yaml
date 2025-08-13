@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.9.0
-  share_plus: ^7.2.1
+  share_plus: ^10.0.2
   qr_code_scanner: ^1.0.1
   url_launcher: ^6.1.7
   syncfusion_flutter_pdfviewer: ^30.2.4

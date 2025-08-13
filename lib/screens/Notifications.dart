@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
@@ -17,21 +18,72 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       'date': '04-08-2025',
       'description': 'Vos notes pour l\'UE "Intelligence Artificielle" sont disponibles.',
       'fullMessage': 'Bonjour, vos notes d\'examen pour l\'UE "Intelligence Artificielle" ont été publiées. '
-          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.'
+          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.',
+      'type': 'exam'
     },
     {
       'title': 'Communiqué 📢',
       'date': '02-08-2025',
       'description': 'Le Directeur informe tous les étudiants que...',
       'fullMessage': 'Le Directeur informe tous les étudiants que les activités pédagogiques reprendront le 05 août à 08h00. '
-          'Présence obligatoire pour tous.'
+          'Présence obligatoire pour tous.',
+      'type': 'announcement'
     },
     {
       'title': 'Offre de stage disponible 🎓',
       'date': '01-08-2025',
       'description': 'Une nouvelle offre de stage est disponible dans le domaine IoT.',
       'fullMessage': 'Stage proposé par l\'entreprise AIOTE AFRIKA pour les étudiants en fin de cycle. '
-          'Durée : 3 mois. Début : 15 août. Plus d\'infos dans votre espace étudiant.'
+          'Durée : 3 mois. Début : 15 août. Plus d\'infos dans votre espace étudiant.',
+      'type': 'internship'
+    },
+     {
+      'title': 'Note d\'examen disponible 📘',
+      'date': '04-08-2025',
+      'description': 'Vos notes pour l\'UE "Intelligence Artificielle" sont disponibles.',
+      'fullMessage': 'Bonjour, vos notes d\'examen pour l\'UE "Intelligence Artificielle" ont été publiées. '
+          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.',
+      'type': 'exam'
+    },
+    {
+      'title': 'Communiqué 📢',
+      'date': '02-08-2025',
+      'description': 'Le Directeur informe tous les étudiants que...',
+      'fullMessage': 'Le Directeur informe tous les étudiants que les activités pédagogiques reprendront le 05 août à 08h00. '
+          'Présence obligatoire pour tous.',
+      'type': 'announcement'
+    },
+    {
+      'title': 'Offre de stage disponible 🎓',
+      'date': '01-08-2025',
+      'description': 'Une nouvelle offre de stage est disponible dans le domaine IoT.',
+      'fullMessage': 'Stage proposé par l\'entreprise AIOTE AFRIKA pour les étudiants en fin de cycle. '
+          'Durée : 3 mois. Début : 15 août. Plus d\'infos dans votre espace étudiant.',
+      'type': 'internship'
+    },
+     {
+      'title': 'Note d\'examen disponible 📘',
+      'date': '04-08-2025',
+      'description': 'Vos notes pour l\'UE "Intelligence Artificielle" sont disponibles.',
+      'fullMessage': 'Bonjour, vos notes d\'examen pour l\'UE "Intelligence Artificielle" ont été publiées. '
+          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.',
+      'type': 'exam'
+    },
+    {
+      'title': 'Communiqué 📢',
+      'date': '02-08-2025',
+      'description': 'Le Directeur informe tous les étudiants que...',
+      'fullMessage': 'Le Directeur informe tous les étudiants que les activités pédagogiques reprendront le 05 août à 08h00. '
+          'Présence obligatoire pour tous.',
+      'type': 'announcement'
+    },
+    {
+      'title': 'Offre de stage disponible 🎓',
+      'date': '01-08-2025',
+      'description': 'Une nouvelle offre de stage est disponible dans le domaine IoT.',
+      'fullMessage': 'Stage proposé par l\'entreprise AIOTE AFRIKA pour les étudiants en fin de cycle. '
+          'Durée : 3 mois. Début : 15 août. Plus d\'infos dans votre espace étudiant.',
+      'type': 'internship'
     },
   ];
 
@@ -39,6 +91,19 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
+  }
+
+  IconData _getNotificationIcon(String type) {
+    switch (type) {
+      case 'exam':
+        return Icons.book;
+      case 'announcement':
+        return Icons.campaign;
+      case 'internship':
+        return Icons.school;
+      default:
+        return Icons.notifications_active_outlined;
+    }
   }
 
   void _showNotificationDetail(BuildContext context, Map<String, String> notif) {
@@ -129,10 +194,13 @@ class _NotificationsScreenState extends State<NotificationsScreen>
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.orange[100],
+              color: Colors.lightBlue[100],
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Icon(Icons.notifications_active_outlined, color: Colors.orange),
+            child: Icon(
+              _getNotificationIcon(notif['type'] ?? ''),
+              color: Colors.lightBlue,
+            ),
           ),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,18 +227,30 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                 style: const TextStyle(fontSize: 13),
               ),
               const SizedBox(height: 4),
-              GestureDetector(
-                onTap: () => _showNotificationDetail(context, notif),
-                child: const Text(
-                  "Lire la suite",
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => _showNotificationDetail(context, notif),
+                    child: const Text(
+                      "Lire la suite",
+                      style: TextStyle(
+                          color: Colors.lightBlue,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.share, size: 18, color: Colors.lightBlue),
+                    onPressed: () {
+                      Share.share(
+                        '📢 ${notif['title']}\n\n${notif['description']}\n\n📱 Lisez plus sur Okampus App.',
+                        subject: "Partage de notification",
+                      );
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 10),
-              const Divider(height: 1),
             ],
           ),
           isThreeLine: true,
@@ -189,14 +269,36 @@ class _NotificationsScreenState extends State<NotificationsScreen>
         backgroundColor: Colors.white,
         elevation: 0,
         foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.help_outline, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.home, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.chat_bubble, color: Colors.lightBlue),
+            onPressed: () {},
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.orange,
+          labelColor: Colors.lightBlue,
           unselectedLabelColor: Colors.black,
           labelStyle: const TextStyle(fontWeight: FontWeight.bold),
           tabs: const [
             Tab(text: 'Notifications'),
-            Tab(text: 'Transaction en attente'),
+            Tab(text: 'Notification manquée'),
           ],
         ),
       ),
@@ -204,7 +306,7 @@ class _NotificationsScreenState extends State<NotificationsScreen>
         controller: _tabController,
         children: [
           _buildNotificationsTab(),
-          const Center(child: Text("Aucune transaction en attente")),
+          const Center(child: Text("Aucune notification manquée")),
         ],
       ),
     );

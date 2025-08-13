@@ -65,13 +65,14 @@ class HomeScreen extends StatelessWidget {
               );
             },
             child: const Padding(
-              padding: EdgeInsets.only(right: 12.0),
-              child: CircleAvatar(
-                radius: 16,
-                backgroundColor: Colors.blue,
-                child: Icon(Icons.person, color: Colors.black),
-              ),
-            ),
+  padding: EdgeInsets.only(right: 12.0),
+  child: Icon(
+    Icons.person,
+    size: 32,              // Ajuste la taille ici
+    color: Colors.lightBlue, // Couleur bleu ciel
+  ),
+),
+
           ),
         ],
       ),
