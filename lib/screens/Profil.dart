@@ -10,7 +10,7 @@ class ProfilScreen extends StatelessWidget {
       leading: Icon(icon, color: Colors.lightBlue),
       title: Text(
         title,
-        style: const TextStyle(fontWeight: FontWeight.bold),
+        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14), // taille réduite
       ),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.lightBlue),
       onTap: onTap,
@@ -37,6 +37,32 @@ class ProfilScreen extends StatelessWidget {
     );
   }
 
+  void _confirmerDeconnexion(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Déconnexion'),
+        content: const Text('Vous êtes sur le point de quitter l\'application.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(), // annuler
+            child: const Text('Annuler'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              // TODO : ajouter ici la logique de déconnexion réelle
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Déconnecté')),
+              );
+            },
+            child: const Text('Oui'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +70,7 @@ class ProfilScreen extends StatelessWidget {
         leading: const BackButton(),
         title: const Text(
           'Mon profil',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -75,64 +101,63 @@ class ProfilScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 24),
-
-            // Ligne profil avec nom à gauche et image QR à droite
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'ATINANG MOISE',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage('assets/qr.jpg'), // ← image QR
+                CircleAvatar(
+                  radius: 28,
+                  backgroundImage: AssetImage('assets/qr.jpg'),
                 ),
               ],
             ),
-
-            const SizedBox(height: 32),
-
+            const SizedBox(height: 28),
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 'Actions principales',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 12),
-
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     buildListTile(Icons.favorite_border, 'Mes favoris', () {}),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     buildListTile(Icons.shopping_bag_outlined, 'Mes cours', () {}),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     buildListTile(Icons.info_outline, 'Mes informations', () {}),
                     const SizedBox(height: 16),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Autres actions',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
                     const SizedBox(height: 12),
                     buildListTile(Icons.settings, 'Paramètres', () {
                       Navigator.pushNamed(context, '/parametres');
                     }),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
+                    buildListTile(Icons.lock_outline, 'Changer le mot de passe', () {
+                      Navigator.pushNamed(context, '/changer-mot-de-passe');
+                    }),
+                    const SizedBox(height: 6),
                     buildListTile(Icons.star_border, 'Noter l\'application', () {}),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     buildListTile(Icons.help, 'Assistance', () {
                       Navigator.pushNamed(context, '/assistance');
                     }),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 6),
                     buildListTile(Icons.share_outlined, 'Partager l\'application', () {
                       _partagerApp(context);
                     }),
@@ -140,16 +165,12 @@ class ProfilScreen extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Bouton Déconnexion visible en bas
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: OutlinedButton.icon(
-                onPressed: () {
-                  // TODO : action de déconnexion
-                },
+                onPressed: () => _confirmerDeconnexion(context),
                 style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
                   side: const BorderSide(color: Colors.black),
                 ),
                 icon: const Icon(Icons.logout, color: Colors.black),

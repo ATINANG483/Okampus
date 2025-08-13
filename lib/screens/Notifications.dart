@@ -8,10 +8,7 @@ class NotificationsScreen extends StatefulWidget {
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-class _NotificationsScreenState extends State<NotificationsScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
+class _NotificationsScreenState extends State<NotificationsScreen> {
   final List<Map<String, String>> notifications = [
     {
       'title': 'Note d\'examen disponible 📘',
@@ -38,14 +35,6 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       'type': 'internship'
     },
      {
-      'title': 'Note d\'examen disponible 📘',
-      'date': '04-08-2025',
-      'description': 'Vos notes pour l\'UE "Intelligence Artificielle" sont disponibles.',
-      'fullMessage': 'Bonjour, vos notes d\'examen pour l\'UE "Intelligence Artificielle" ont été publiées. '
-          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.',
-      'type': 'exam'
-    },
-    {
       'title': 'Communiqué 📢',
       'date': '02-08-2025',
       'description': 'Le Directeur informe tous les étudiants que...',
@@ -62,14 +51,22 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       'type': 'internship'
     },
      {
-      'title': 'Note d\'examen disponible 📘',
-      'date': '04-08-2025',
-      'description': 'Vos notes pour l\'UE "Intelligence Artificielle" sont disponibles.',
-      'fullMessage': 'Bonjour, vos notes d\'examen pour l\'UE "Intelligence Artificielle" ont été publiées. '
-          'Connectez-vous à votre espace étudiant pour consulter le relevé détaillé.',
-      'type': 'exam'
+      'title': 'Communiqué 📢',
+      'date': '02-08-2025',
+      'description': 'Le Directeur informe tous les étudiants que...',
+      'fullMessage': 'Le Directeur informe tous les étudiants que les activités pédagogiques reprendront le 05 août à 08h00. '
+          'Présence obligatoire pour tous.',
+      'type': 'announcement'
     },
     {
+      'title': 'Offre de stage disponible 🎓',
+      'date': '01-08-2025',
+      'description': 'Une nouvelle offre de stage est disponible dans le domaine IoT.',
+      'fullMessage': 'Stage proposé par l\'entreprise AIOTE AFRIKA pour les étudiants en fin de cycle. '
+          'Durée : 3 mois. Début : 15 août. Plus d\'infos dans votre espace étudiant.',
+      'type': 'internship'
+    },
+     {
       'title': 'Communiqué 📢',
       'date': '02-08-2025',
       'description': 'Le Directeur informe tous les étudiants que...',
@@ -86,12 +83,6 @@ class _NotificationsScreenState extends State<NotificationsScreen>
       'type': 'internship'
     },
   ];
-
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    super.initState();
-  }
 
   IconData _getNotificationIcon(String type) {
     switch (type) {
@@ -185,8 +176,13 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   }
 
   Widget _buildNotificationsTab() {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: notifications.length,
+      separatorBuilder: (context, index) => Divider(
+        color: Colors.grey[300],
+        thickness: 0.5,
+        height: 0,
+      ),
       itemBuilder: (context, index) {
         final notif = notifications[index];
         return ListTile(
@@ -240,14 +236,45 @@ class _NotificationsScreenState extends State<NotificationsScreen>
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.share, size: 18, color: Colors.lightBlue),
-                    onPressed: () {
-                      Share.share(
-                        '📢 ${notif['title']}\n\n${notif['description']}\n\n📱 Lisez plus sur Okampus App.',
-                        subject: "Partage de notification",
-                      );
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.share, size: 18, color: Colors.lightBlue),
+                        onPressed: () {
+                          Share.share(
+                            '📢 ${notif['title']}\n\n${notif['description']}\n\n📱 Lisez plus sur Okampus App.',
+                            subject: "Partage de notification",
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete, size: 18, color: Colors.lightBlue),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text("Confirmer la suppression"),
+                              content: const Text("Voulez-vous vraiment supprimer cette notification ?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text("Annuler"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      notifications.removeAt(index);
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("OK"),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -265,7 +292,14 @@ class _NotificationsScreenState extends State<NotificationsScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        title: const Text(
+          'Notifications',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         foregroundColor: Colors.black,
@@ -282,33 +316,9 @@ class _NotificationsScreenState extends State<NotificationsScreen>
             icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.home, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat_bubble, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          labelColor: Colors.lightBlue,
-          unselectedLabelColor: Colors.black,
-          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          tabs: const [
-            Tab(text: 'Notifications'),
-            Tab(text: 'Notification manquée'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildNotificationsTab(),
-          const Center(child: Text("Aucune notification manquée")),
         ],
       ),
+      body: _buildNotificationsTab(),
     );
   }
 }
