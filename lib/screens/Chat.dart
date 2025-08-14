@@ -67,13 +67,13 @@ class _ChatScreenState extends State<ChatScreen> {
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
         decoration: BoxDecoration(
-          color: isUser ? Colors.white : Colors.grey[200], // Utilisateur = blanc
+          color: isUser ? Colors.white : Colors.grey[200],
           borderRadius: BorderRadius.circular(16),
         ),
         child: Text(
           msg['text'],
           style: TextStyle(
-            color: Colors.black, // Texte toujours noir
+            color: Colors.black,
             fontSize: 15,
           ),
         ),
@@ -87,8 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Center(
         child: Text(
           date,
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.black54),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
         ),
       ),
     );
@@ -99,33 +98,45 @@ class _ChatScreenState extends State<ChatScreen> {
     String? lastDateShown;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'ChatOkampus',
-          style: TextStyle(
-            fontWeight: FontWeight.bold, // Titre en gras
-            fontSize: 18,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 1,
-        leading: BackButton(color: Colors.lightBlue),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.notifications_none, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.star_border, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-        ],
-      ),
+     appBar: AppBar(
+  title: Text(
+    'ChatOkampus',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+    ),
+  ),
+  backgroundColor: Colors.white,
+  foregroundColor: Colors.black,
+  elevation: 1,
+  leading: IconButton(
+    icon: Icon(Icons.arrow_back, color: Colors.lightBlue),
+    onPressed: () {
+      Navigator.pushNamed(context, '/home'); // Retour vers le dashboard
+    },
+  ),
+  actions: [
+    IconButton(
+      icon: Icon(Icons.search, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/recherche');
+      },
+    ),
+    IconButton(
+      icon: Icon(Icons.notifications_none, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/notifications');
+      },
+    ),
+    IconButton(
+      icon: Icon(Icons.home_outlined, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/home');
+      },
+    ),
+  ],
+),
+
       backgroundColor: Color(0xFFF1F5FA),
       body: Column(
         children: [

@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'theme.dart';
 
 import 'screens/Cours.dart';
-import 'screens/splash.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
 import 'screens/signup.dart';
 import 'screens/dashboard.dart';
-import 'screens/actus.dart';
-import 'screens/apropos.dart';
 import 'screens/erreur.dart';
 import 'screens/favoris.dart';
 import 'screens/notifications.dart';
 import 'screens/parametres.dart';
 import 'screens/profil.dart';
 import 'screens/recherche.dart';
-import 'screens/unites.dart';
 import 'screens/Chat.dart';
 import 'screens/Assistance.dart';
 import 'screens/Parrainage.dart';
+import 'screens/change_password.dart';
+
 
 void main() {
-  runApp(const OKampusApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const OKampusApp(),
+    ),
+  );
 }
 
 class OKampusApp extends StatelessWidget {
@@ -28,21 +34,38 @@ class OKampusApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
       title: 'OKAMPUS',
       debugShowCheckedModeBanner: false,
+      themeMode: themeProvider.themeMode,
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        brightness: Brightness.light,
+        primarySwatch: Colors.lightBlue,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0,
+        ),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.lightBlue,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
       ),
       initialRoute: '/signup',
       routes: {
-        '/splash': (context) => const SplashScreen(),
         '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
         '/dashboard': (context) => const DashboardScreen(),
-        '/actus': (context) => const ActusScreen(),
-        '/apropos': (context) => const AproposScreen(),
         '/cours': (context) => CoursesScreen(),
         '/erreur': (context) => const ErreurScreen(),
         '/favoris': (context) => const FavorisScreen(),
@@ -50,10 +73,11 @@ class OKampusApp extends StatelessWidget {
         '/parametres': (context) => const ParametresScreen(),
         '/profil': (context) => const ProfilScreen(),
         '/recherche': (context) => const RechercheScreen(),
-        '/unites': (context) => const UnitesScreen(),
         '/chat': (context) => ChatScreen(),
         '/assistance': (context) => const AssistanceScreen(),
         '/parrainage': (context) => const ParrainageScreen(),
+        '/change-password': (context) => const ChangePasswordScreen(),
+
       },
     );
   }

@@ -30,6 +30,12 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (_) => const RechercheScreen()));
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            onPressed: () {
+              Navigator.pushNamed(context, '/assistance');
+            },
+          ),
           Stack(
             children: [
               IconButton(
@@ -47,8 +53,8 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(2),
                   decoration: const BoxDecoration(
-                      color: Colors.yellow, shape: BoxShape.circle),
-                  child: const Text('19',
+                      color: Colors.red, shape: BoxShape.circle),
+                  child: const Text('8',
                       style: TextStyle(
                           fontSize: 10,
                           color: Colors.black,
@@ -57,12 +63,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(
-            icon: const Icon(Icons.help_outline),
-            onPressed: () {
-              Navigator.pushNamed(context, '/assistance');
-            },
-          ),
+          
           GestureDetector(
             onTap: () {
               Navigator.push(context,
@@ -76,7 +77,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
 
-      // Corps avec scroll limité
+      // Corps
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const ClampingScrollPhysics(),
@@ -85,7 +86,7 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Bienvenue sur OKampus',
+                'Bienvenue ÔKAMPUS',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -127,8 +128,8 @@ class HomeScreen extends StatelessWidget {
                         children: const [
                           Row(
                             children: [
-                              Icon(Icons.account_balance_wallet,
-                                  color: Colors.orange, size: 18),
+                              Icon(Icons.school,
+                                  color: Colors.lightBlue, size: 18),
                               SizedBox(width: 6),
                               Text('ITT3-IR CLASSIQUE',
                                   style: TextStyle(
@@ -139,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.remove_red_eye, color: Colors.black),
+                              Icon(Icons.person, color: Colors.lightBlue),
                               SizedBox(width: 6),
                               Text('ATINANG MOISE',
                                   style: TextStyle(
@@ -148,7 +149,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 8),
-                          Text('Mes notes',
+                          Text('22T007',
                               style: TextStyle(
                                   color: Colors.lightBlue,
                                   fontWeight: FontWeight.bold)),
@@ -174,7 +175,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Icon(Icons.work, color: Colors.orange),
                         SizedBox(width: 6),
-                        Text('Emploi',
+                        Text('Emploi temps',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
@@ -228,12 +229,13 @@ class HomeScreen extends StatelessWidget {
                   _ActionButton(icon: Icons.person, label: 'Admin', fontSize: 10),
                   _ActionButton(icon: Icons.person, label: 'Délégué', fontSize: 10),
                   _ActionButton(icon: Icons.public, label: 'Site-École', fontSize: 10),
-                  _ActionButton(icon: Icons.person, label: 'WhatsApp', fontSize: 10),
+                  _ActionButton(icon: FontAwesomeIcons.whatsapp, label: 'Groupe', fontSize: 10),
+
                 ],
               ),
               const SizedBox(height: 24),
 
-              // Unités d'enseignement
+              // Unités d’enseignement
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -249,7 +251,7 @@ class HomeScreen extends StatelessWidget {
                     },
                     child: const Text('Voir plus',
                         style: TextStyle(
-                            color: Colors.blueAccent,
+                            color: Colors.lightBlue,
                             fontSize: 13,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -266,8 +268,6 @@ class HomeScreen extends StatelessWidget {
                 children: const [
                   _UECard(title: 'Algorithmique', prof: 'M. NANA'),
                   _UECard(title: 'Maths discrètes', prof: 'Mme TALLA'),
-                  _UECard(title: 'Réseaux', prof: 'Dr. BILE'),
-                  _UECard(title: 'Développement mobile', prof: 'M. MOUAFO'),
                 ],
               ),
               const SizedBox(height: 16),
@@ -307,20 +307,23 @@ class HomeScreen extends StatelessWidget {
                       description: 'Chambre meublée avec balcon et wifi.',
                       prix: '120 000 FCFA/mois',
                       imagePath: 'assets/chambre1.jpg',
+                      rating: 5,
                     ),
                     SizedBox(width: 12),
                     _RoomCardSimple(
-                      title: 'Makepe',
+                      title: 'Ecole des postes ',
                       description: 'Appartement lumineux proche des commerces.',
                       prix: '100 000 FCFA/mois',
                       imagePath: 'assets/chambre2.jpg',
+                      rating: 4,
                     ),
                     SizedBox(width: 12),
                     _RoomCardSimple(
-                      title: 'Logpom',
+                      title: 'Cradat, Yaounde',
                       description: 'Studio confortable avec kitchenette.',
                       prix: '80 000 FCFA/mois',
                       imagePath: 'assets/chambre3.jpg',
+                      rating: 3,
                     ),
                   ],
                 ),
@@ -338,9 +341,13 @@ class HomeScreen extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
         currentIndex: 0,
         onTap: (index) {
-          if (index == 1) Navigator.pushNamed(context, '/chat');
-          else if (index == 2) Navigator.pushNamed(context, '/cours');
-          else if (index == 3) Navigator.pushNamed(context, '/parametres');
+          if (index == 1) {
+            Navigator.pushNamed(context, '/chat');
+          } else if (index == 2) {
+            Navigator.pushNamed(context, '/cours');
+          } else if (index == 3) {
+            Navigator.pushNamed(context, '/parametres');
+          }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.grid_view), label: 'Accueil'),
@@ -436,12 +443,14 @@ class _RoomCardSimple extends StatelessWidget {
   final String description;
   final String prix;
   final String imagePath;
+  final int rating;
 
   const _RoomCardSimple({
     required this.title,
     required this.description,
     required this.prix,
     required this.imagePath,
+    this.rating = 4,
   });
 
   @override
@@ -473,19 +482,51 @@ class _RoomCardSimple extends StatelessWidget {
                     style: const TextStyle(color: Colors.black54, fontSize: 10),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis),
+                const SizedBox(height: 4),
+
+                // Etoiles
+                Row(
+                  children: List.generate(5, (index) {
+                    return Icon(
+                      index < rating ? Icons.star : Icons.star_border,
+                      color: Colors.amber,
+                      size: 14,
+                    );
+                  }),
+                ),
                 const SizedBox(height: 6),
-                GestureDetector(
-                  onTap: () {
-                    // action Contacter
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                        color: Colors.lightBlue, borderRadius: BorderRadius.circular(8)),
-                    child: const Text('Contacter',
-                        style: TextStyle(
-                            color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                  ),
+
+                // Boutons Contacter et Localiser
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // action Contacter
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: Colors.lightBlue, borderRadius: BorderRadius.circular(8)),
+                        child: const Text('Contacter',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // action Localiser
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                            color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                        child: const Text('Localiser',
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

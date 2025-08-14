@@ -87,6 +87,11 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
         elevation: 0,
         actions: [
           IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlueAccent),
+            onPressed: () {},
+          ),
+          
+          IconButton(
             icon: const Icon(Icons.help_outline, color: Colors.lightBlueAccent),
             onPressed: () {},
           ),
@@ -94,10 +99,7 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
             icon: const Icon(Icons.chat_bubble_outline, color: Colors.lightBlueAccent),
             onPressed: () {},
           ),
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.lightBlueAccent),
-            onPressed: () {},
-          ),
+          
         ],
       ),
       body: ListView.builder(

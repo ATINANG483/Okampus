@@ -71,24 +71,32 @@ class CoursesScreen extends StatelessWidget {
           "Cours",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.notifications, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.person, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-        ],
+          actions: [
+    IconButton(
+      icon: const Icon(Icons.search, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/recherche'); // redirige vers recherche
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/notifications');
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // chatbot au lieu du "?"
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+      },
+    ),
+  ],
       ),
 
       // Liste des cours

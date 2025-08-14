@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:okampus/theme.dart';
+import 'package:provider/provider.dart';
 import 'ScannerScreen.dart';
 
 class ParametresScreen extends StatefulWidget {
@@ -55,6 +57,7 @@ class _ParametresScreenState extends State<ParametresScreen> {
               selected: _selectedMode == 'Clair',
               onTap: () {
                 setState(() => _selectedMode = 'Clair');
+                context.read<ThemeProvider>().setLightMode();
                 Navigator.pop(context);
               },
             ),
@@ -63,6 +66,7 @@ class _ParametresScreenState extends State<ParametresScreen> {
               selected: _selectedMode == 'Sombre',
               onTap: () {
                 setState(() => _selectedMode = 'Sombre');
+                context.read<ThemeProvider>().setDarkMode();
                 Navigator.pop(context);
               },
             ),
@@ -152,7 +156,7 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), // gris clair général (en complément du dégradé)
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         leading: const BackButton(color: Colors.black),
         title: const Text(
@@ -192,8 +196,6 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
             onPressed: () => Navigator.pushNamed(context, '/assistance'),
           ),
         ],
-        backgroundColor: Colors.white,
-        elevation: 0,
       ),
       body: Container(
         decoration: const BoxDecoration(
@@ -201,7 +203,7 @@ Okampus est une application mobile intelligente conçue pour améliorer l’exp�
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFFE6F0FA), // bleu ciel très clair
+              Color(0xFFE6F0FA),
               Colors.white,
             ],
           ),

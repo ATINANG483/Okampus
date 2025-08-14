@@ -291,33 +291,40 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Notifications',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        foregroundColor: Colors.black,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.help_outline, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-        ],
-      ),
+   appBar: AppBar(
+  title: const Text(
+    'Notifications',
+    style: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 18,
+      color: Colors.black,
+    ),
+  ),
+  backgroundColor: Colors.white,
+  elevation: 0,
+  foregroundColor: Colors.black,
+  actions: [
+    IconButton(
+      icon: const Icon(Icons.search, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/recherche'); // redirige vers recherche
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // chatbot au lieu du "?"
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+      },
+    ),
+  ],
+),
+
       body: _buildNotificationsTab(),
     );
   }
