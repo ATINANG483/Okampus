@@ -87,15 +87,25 @@ class VoirPlusBarbillard extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {},
-          ),
-        ],
+    IconButton(
+      icon: const Icon(Icons.search, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/recherche'); // redirige vers recherche
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // chatbot au lieu du "?"
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+      },
+    ),
+  ],
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(10),

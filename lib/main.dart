@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'theme.dart';
 
+// Import des écrans
 import 'screens/Cours.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
@@ -18,7 +19,11 @@ import 'screens/Chat.dart';
 import 'screens/Assistance.dart';
 import 'screens/Parrainage.dart';
 import 'screens/change_password.dart';
+import 'screens/VerifyCode.dart';
+import 'screens/ResetPassword.dart';
 
+// Onboarding
+import 'screens/debut.dart';
 
 void main() {
   runApp(
@@ -60,8 +65,9 @@ class OKampusApp extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      initialRoute: '/signup',
+      initialRoute: '/debut',
       routes: {
+        '/debut': (context) => const OnboardingScreen(),
         '/home': (context) => const HomeScreen(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignupScreen(),
@@ -77,7 +83,8 @@ class OKampusApp extends StatelessWidget {
         '/assistance': (context) => const AssistanceScreen(),
         '/parrainage': (context) => const ParrainageScreen(),
         '/change-password': (context) => const ChangePasswordScreen(),
-
+        '/verify-code': (context) => const VerifyCodeScreen(),
+        '/reset-password': (context) => const ResetPasswordScreen(),
       },
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'Notifications.dart';
 import 'Profil.dart';
 
@@ -7,12 +8,12 @@ class ParrainageScreen extends StatelessWidget {
   const ParrainageScreen({Key? key}) : super(key: key);
 
   final List<Map<String, dynamic>> classes = const [
-    {'name': 'ITT1A', 'icon': FontAwesomeIcons.whatsapp},
-    {'name': 'ITT1B', 'icon': FontAwesomeIcons.whatsapp},
-    {'name': 'ITT2A', 'icon': FontAwesomeIcons.whatsapp},
-    {'name': 'ITT2B', 'icon': FontAwesomeIcons.whatsapp},
-    {'name': 'ITT3', 'icon': FontAwesomeIcons.whatsapp},
-    {'name': 'MASTER', 'icon': FontAwesomeIcons.whatsapp},
+    {'name': 'ITT1A', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000001'},
+    {'name': 'ITT1B', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000002'},
+    {'name': 'ITT2A', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000003'},
+    {'name': 'ITT2B', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000004'},
+    {'name': 'ITT3', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000005'},
+    {'name': 'MASTER', 'icon': FontAwesomeIcons.whatsapp, 'url': 'https://wa.me/237690000006'},
   ];
 
   final List<Map<String, dynamic>> plateformes = const [
@@ -22,26 +23,33 @@ class ParrainageScreen extends StatelessWidget {
     {'name': 'Instagram', 'icon': FontAwesomeIcons.instagram, 'color': Colors.purple, 'url': 'https://instagram.com'},
   ];
 
+  Future<void> _openUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      debugPrint("Impossible d'ouvrir le lien : $url");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), // Fond gris clair sur toute la page
+      backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
-        backgroundColor: Colors.white, // Fond blanc uniquement sur la barre du haut
+        backgroundColor: Colors.white,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
         title: const Text(
           'Parrainage',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18, // taille réduite pour que tout soit visible
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
         ),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Colors.lightBlue),
             onPressed: () {
-              // Action recherche ici
+              // Exemple : aller vers une page de recherche
+              Navigator.pushNamed(context, '/recherche');
             },
           ),
           IconButton(
@@ -66,25 +74,19 @@ class ParrainageScreen extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const NotificationsScreen()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const NotificationsScreen()));
             },
           ),
           IconButton(
             icon: const Icon(Icons.settings, color: Colors.lightBlue),
             onPressed: () {
-              // Action paramètres ici
+              Navigator.pushNamed(context, '/parametres');
             },
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.lightBlue, size: 26), // juste la tête, taille réduite
+            icon: const Icon(Icons.account_circle, color: Colors.lightBlue, size: 26),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilScreen()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilScreen()));
             },
           ),
         ],
@@ -112,7 +114,7 @@ class ParrainageScreen extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          // Action WhatsApp ici
+                          _openUrl(classe['url']); // Ouvre WhatsApp avec le lien
                         },
                         child: Container(
                           padding: const EdgeInsets.all(18),
@@ -120,25 +122,17 @@ class ParrainageScreen extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.green.shade50,
                           ),
-                          child: FaIcon(
-                            classe['icon'],
-                            color: Colors.green,
-                            size: 28,
-                          ),
+                          child: FaIcon(classe['icon'], color: Colors.green, size: 28),
                         ),
                       ),
                       const SizedBox(height: 6),
-                      Text(
-                        classe['name'],
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      Text(classe['name'], style: const TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   );
                 },
               ),
             ),
             const SizedBox(height: 20),
-            // 💬 FAQ rapide
             _buildSectionCard(
               title: 'FAQ rapide',
               children: const [
@@ -157,7 +151,6 @@ class ParrainageScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 20),
-            // 🌐 Plateformes SUP'PTIC
             _buildSectionCard(
               title: "Plateformes de SUP'PTIC",
               children: [
@@ -168,23 +161,16 @@ class ParrainageScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            // Ici tu pourras utiliser url_launcher pour ouvrir p['url']
+                            _openUrl(p['url']); // Ouvre la plateforme
                           },
                           child: CircleAvatar(
                             backgroundColor: p['color'].withOpacity(0.1),
                             radius: 28,
-                            child: FaIcon(
-                              p['icon'],
-                              color: p['color'],
-                              size: 28,
-                            ),
+                            child: FaIcon(p['icon'], color: p['color'], size: 28),
                           ),
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          p['name'],
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
+                        Text(p['name'], style: const TextStyle(fontWeight: FontWeight.bold)),
                       ],
                     );
                   }).toList(),
@@ -205,18 +191,13 @@ class ParrainageScreen extends StatelessWidget {
         color: const Color(0xFFFDFDFD),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: const Offset(0, 2)),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.lightBlue)),
+          Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.lightBlue)),
           const SizedBox(height: 12),
           ...children,
         ],
@@ -238,11 +219,9 @@ class _FaqRow extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(question,
-              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+          Text(question, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
           const SizedBox(height: 4),
-          Text(answer,
-              style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
+          Text(answer, style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey)),
         ],
       ),
     );

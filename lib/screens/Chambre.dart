@@ -86,21 +86,25 @@ class _VoirPlusChambresState extends State<VoirPlusChambres> {
         iconTheme: const IconThemeData(color: Colors.lightBlueAccent), // Bleu ciel
         elevation: 0,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.lightBlueAccent),
-            onPressed: () {},
-          ),
-          
-          IconButton(
-            icon: const Icon(Icons.help_outline, color: Colors.lightBlueAccent),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat_bubble_outline, color: Colors.lightBlueAccent),
-            onPressed: () {},
-          ),
-          
-        ],
+    IconButton(
+      icon: const Icon(Icons.search, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/recherche'); // redirige vers recherche
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+      },
+    ),
+    IconButton(
+      icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
+      onPressed: () {
+        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+      },
+    ),
+  ],
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(12),

@@ -26,7 +26,8 @@ class AssistanceScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         onTap: onTap,
         child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           leading: Icon(icon, color: Colors.lightBlue, size: 30),
           title: Row(
             children: [
@@ -39,10 +40,7 @@ class AssistanceScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              // Une petite étoile ou fleur pour égayer
               const Text('⭐️', style: TextStyle(fontSize: 18)),
-              // Ou utiliser un Icon fleur personnalisée (exemple)
-              // Icon(Icons.local_florist, color: Colors.lightBlue, size: 20),
             ],
           ),
           trailing: trailingIcon ??
@@ -59,7 +57,7 @@ class AssistanceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F7FF), // bleu ciel clair doux
+      backgroundColor: const Color(0xFFF0F7FF),
       appBar: AppBar(
         title: const Text('Assistance'),
         backgroundColor: Colors.white,
@@ -75,7 +73,7 @@ class AssistanceScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.search, color: Colors.lightBlue),
             onPressed: () {
-              // TODO: action recherche
+              Navigator.pushNamed(context, '/recherche');
             },
           ),
           IconButton(
@@ -87,7 +85,7 @@ class AssistanceScreen extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.home, color: Colors.lightBlue),
             onPressed: () {
-              Navigator.pushNamed(context, '/accueil');
+              Navigator.pushNamed(context, '/home');
             },
           ),
           IconButton(
@@ -112,23 +110,23 @@ class AssistanceScreen extends StatelessWidget {
             icon: Icons.headset_mic_outlined,
             title: 'Service client',
             onTap: () {
-              // TODO: action service client
+              Navigator.pushNamed(context, '/serviceClient');
             },
           ),
           buildOption(
             icon: Icons.store_mall_directory_outlined,
             title: 'Où nous trouver ?',
             onTap: () {
-              // TODO: action localisation
+              Navigator.pushNamed(context, '/localisation');
             },
           ),
-          // Exemple d'option supplémentaire avec icône fleur différente
           buildOption(
             icon: Icons.help_outline,
             title: 'FAQ & Aide',
-            trailingIcon: const Icon(Icons.local_florist, color: Colors.lightBlue, size: 22),
+            trailingIcon: const Icon(Icons.local_florist,
+                color: Colors.lightBlue, size: 22),
             onTap: () {
-              // TODO: action FAQ
+              Navigator.pushNamed(context, '/faq');
             },
           ),
         ],
