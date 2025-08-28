@@ -142,7 +142,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 30),
 
-                // Bouton Créer un compte
+                
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -257,7 +257,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
         SizedBox(
-          height: 56, // plus grand que 50 pour confort
+          height: 56, 
           child: TextField(
             obscureText: obscureText,
             decoration: InputDecoration(

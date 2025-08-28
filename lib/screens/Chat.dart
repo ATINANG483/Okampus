@@ -1,6 +1,11 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
+  final Future<String> Function(String)? fetchResponse;
+
+  const ChatScreen({Key? key, this.fetchResponse}) : super(key: key);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -20,40 +25,65 @@ class _ChatScreenState extends State<ChatScreen> {
       'isUser': false,
       'time': '18:59',
     },
-    {
-      'text': "Quels sont les horaires de la bibliothèque ?",
-      'isUser': true,
-      'time': '8 août 19:05',
-    },
-    {
-      'text':
-          "La bibliothèque est ouverte du lundi au vendredi, de 8h à 18h, et le samedi de 9h à 13h 📚.",
-      'isUser': false,
-      'time': '19:06',
-    },
-    {
-      'text': "Quels événements sont prévus cette semaine ?",
-      'isUser': true,
-      'time': '8 août 19:15',
-    },
-    {
-      'text':
-          "Cette semaine :\n- Mardi : Conférence sur l'entrepreneuriat (14h)\n- Jeudi : Tournoi de football ⚽\n- Vendredi : Soirée culturelle 🎶",
-      'isUser': false,
-      'time': '19:16',
-    },
   ];
 
-  void sendMessage() {
+  Future<void> sendMessage() async {
     if (_controller.text.trim().isNotEmpty) {
+      String userMessage = _controller.text.trim();
+
       setState(() {
         messages.add({
-          'text': _controller.text.trim(),
+          'text': userMessage,
           'isUser': true,
           'time': 'Maintenant',
         });
         _controller.clear();
       });
+
+      // Fermer le clavier automatiquement
+      FocusScope.of(context).unfocus();
+
+      // Si une fonction Gemini est fournie
+      if (widget.fetchResponse != null) {
+        // Ajouter le loader
+        setState(() {
+          messages.add({
+            'text': '',
+            'isUser': false,
+            'time': 'Maintenant',
+            'isTyping': true,
+          });
+        });
+
+        String reply = await widget.fetchResponse!(userMessage);
+
+        // Supprimer le loader
+        setState(() {
+          messages.removeWhere((msg) => msg['isTyping'] == true);
+        });
+
+        // Affichage progressif lettre par lettre
+        String currentText = '';
+        for (int i = 0; i < reply.length; i++) {
+          currentText += reply[i];
+          if (i % 2 == 0 || i == reply.length - 1) {
+            await Future.delayed(const Duration(milliseconds: 30));
+            if (mounted) {
+              setState(() {
+                if (messages.isNotEmpty && messages.last['isUser'] == false) {
+                  messages.last['text'] = currentText;
+                } else {
+                  messages.add({
+                    'text': currentText,
+                    'isUser': false,
+                    'time': 'Maintenant',
+                  });
+                }
+              });
+            }
+          }
+        }
+      }
     }
   }
 
@@ -62,17 +92,17 @@ class _ChatScreenState extends State<ChatScreen> {
     return Align(
       alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        padding: EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: const EdgeInsets.all(12),
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.75),
         decoration: BoxDecoration(
-          color: isUser ? Colors.white : Colors.grey[200],
+          color: isUser ? Colors.lightBlue[100] : Colors.green[100],
           borderRadius: BorderRadius.circular(16),
         ),
         child: Text(
           msg['text'],
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 15,
           ),
@@ -87,7 +117,31 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Center(
         child: Text(
           date,
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
+          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTypingIndicator() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.green[100],
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Dot(),
+            SizedBox(width: 4),
+            Dot(delay: 100),
+            SizedBox(width: 4),
+            Dot(delay: 200),
+          ],
         ),
       ),
     );
@@ -98,57 +152,55 @@ class _ChatScreenState extends State<ChatScreen> {
     String? lastDateShown;
 
     return Scaffold(
-     appBar: AppBar(
-  title: Text(
-    'ChatOkampus',
-    style: TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 18,
-    ),
-  ),
-  backgroundColor: Colors.white,
-  foregroundColor: Colors.black,
-  elevation: 1,
-  leading: IconButton(
-    icon: Icon(Icons.arrow_back, color: Colors.lightBlue),
-    onPressed: () {
-      Navigator.pushNamed(context, '/home'); // Retour vers le dashboard
-    },
-  ),
-  actions: [
-    IconButton(
-      icon: Icon(Icons.search, color: Colors.lightBlue),
-      onPressed: () {
-        Navigator.pushNamed(context, '/recherche');
-      },
-    ),
-    IconButton(
-      icon: Icon(Icons.notifications_none, color: Colors.lightBlue),
-      onPressed: () {
-        Navigator.pushNamed(context, '/notifications');
-      },
-    ),
-    IconButton(
-      icon: Icon(Icons.home_outlined, color: Colors.lightBlue),
-      onPressed: () {
-        Navigator.pushNamed(context, '/home');
-      },
-    ),
-  ],
-),
-
-      backgroundColor: Color(0xFFF1F5FA),
+      appBar: AppBar(
+        title: const Text(
+          'ChatOkampus',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 1,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.lightBlue),
+          onPressed: () {
+            Navigator.pushNamed(context, '/home');
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
+            onPressed: () {
+              Navigator.pushNamed(context, '/recherche');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
+            onPressed: () {
+              Navigator.pushNamed(context, '/notifications');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.home_outlined, color: Colors.
+            lightBlue),
+            onPressed: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+        ],
+      ),
+      backgroundColor: const Color(0xFFF1F5FA),
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               itemCount: messages.length,
               itemBuilder: (context, index) {
                 final msg = messages[index];
+                if (msg['isTyping'] == true) return buildTypingIndicator();
+
                 final time = msg['time'];
-                final showDate =
-                    time.contains('8 août') && time != lastDateShown;
+                final showDate = time.contains('8 août') && time != lastDateShown;
                 if (showDate) lastDateShown = time;
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -160,25 +212,25 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-          Divider(height: 1),
+          const Divider(height: 1),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
             color: Colors.white,
             child: Row(
               children: [
-                Icon(Icons.edit, color: Colors.lightBlue),
-                SizedBox(width: 8),
+                const Icon(Icons.edit, color: Colors.lightBlue),
+                const SizedBox(width: 8),
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Envoyer un message...",
                       border: InputBorder.none,
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send, color: Colors.lightBlue),
+                  icon: const Icon(Icons.send, color: Colors.lightBlue),
                   onPressed: sendMessage,
                 )
               ],
@@ -187,5 +239,41 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
     );
+  }
+}
+
+class Dot extends StatefulWidget {
+  final int delay;
+  const Dot({this.delay = 0, super.key});
+
+  @override
+  State<Dot> createState() => _DotState();
+}
+
+class _DotState extends State<Dot> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    )..repeat(reverse: true);
+    _animation = Tween<double>(begin: 0.3, end: 1).animate(_controller);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FadeTransition(
+      opacity: _animation,
+      child: const CircleAvatar(radius: 4, backgroundColor: Colors.green),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

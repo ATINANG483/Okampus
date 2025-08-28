@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:okampus/screens/EditProfil.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'theme.dart';
 
@@ -21,11 +25,13 @@ import 'screens/Parrainage.dart';
 import 'screens/change_password.dart';
 import 'screens/VerifyCode.dart';
 import 'screens/ResetPassword.dart';
-
-// Onboarding
 import 'screens/debut.dart';
 
-void main() {
+
+Future<void> main() async {
+  // Charger la clé API depuis .env
+  await dotenv.load(fileName: "assets/config/.env");
+
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProvider(),
@@ -34,8 +40,39 @@ void main() {
   );
 }
 
+// Fonction pour appeler l'API Gemini
+Future<String> fetchGeminiResponse(String prompt) async {
+  final apiKey = dotenv.env['GEMINI_API_KEY'];
+  final url = Uri.parse(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=$apiKey');
+
+  final response = await http.post(
+    url,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      "contents": [
+        {
+          "parts": [
+            {"text": prompt}
+          ]
+        }
+      ]
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return data['candidates']?[0]?['content']?['parts']?[0]?['text'] ??
+        "Pas de réponse";
+  } else {
+    throw Exception('Erreur API: ${response.statusCode} - ${response.body}');
+  }
+}
+
 class OKampusApp extends StatelessWidget {
-  const OKampusApp({Key? key}) : super(key: key);
+  const OKampusApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +116,11 @@ class OKampusApp extends StatelessWidget {
         '/parametres': (context) => const ParametresScreen(),
         '/profil': (context) => const ProfilScreen(),
         '/recherche': (context) => const RechercheScreen(),
-        '/chat': (context) => ChatScreen(),
+        '/edit-profile': (context) => const EditProfileScreen(),
+
+        '/chat': (context) => ChatScreen(
+              fetchResponse: fetchGeminiResponse,
+            ),
         '/assistance': (context) => const AssistanceScreen(),
         '/parrainage': (context) => const ParrainageScreen(),
         '/change-password': (context) => const ChangePasswordScreen(),

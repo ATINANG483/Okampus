@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// 🔹 Import du fichier d’édition de profil
+import 'EditProfil.dart';
+
 class ProfilScreen extends StatelessWidget {
   const ProfilScreen({Key? key}) : super(key: key);
 
@@ -48,10 +51,9 @@ class ProfilScreen extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pop();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Déconnecté')),
-              );
+              Navigator.of(context).pop(); // Ferme la boîte de dialogue
+              // Redirection vers la page login
+              Navigator.pushReplacementNamed(context, '/login');
             },
             child: const Text('Oui'),
           ),
@@ -63,36 +65,36 @@ class ProfilScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-   appBar: AppBar(
-  leading: const BackButton(color: Colors.black),
-  title: const Text(
-    'Mon profil',
-    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-  ),
-  actions: [
-    IconButton(
-      icon: const Icon(Icons.search, color: Colors.lightBlue),
-      onPressed: () {
-        Navigator.pushNamed(context, '/recherche');
-      },
-    ),
-    IconButton(
-      icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
-      onPressed: () {
-        Navigator.pushNamed(context, '/notifications');
-      },
-    ),
-    IconButton(
-      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // icône chatbot
-      onPressed: () {
-        Navigator.pushNamed(context, '/chat'); // lien vers ton chatbot
-      },
-    ),
-  ],
-  backgroundColor: Colors.white,
-  foregroundColor: Colors.black,
-  elevation: 0,
-),
+      appBar: AppBar(
+        leading: const BackButton(color: Colors.black),
+        title: const Text(
+          'Mon profil',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.lightBlue),
+            onPressed: () {
+              Navigator.pushNamed(context, '/recherche');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
+            onPressed: () {
+              Navigator.pushNamed(context, '/notifications');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // icône chatbot
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat'); // lien vers ton chatbot
+            },
+          ),
+        ],
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+      ),
 
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -132,7 +134,10 @@ class ProfilScreen extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/edit-profile');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditProfileScreen()), // ✅ Correction ici
+                    );
                   },
                   child: Row(
                     children: const [
@@ -156,7 +161,9 @@ class ProfilScreen extends StatelessWidget {
               child: ListView(
                 physics: const NeverScrollableScrollPhysics(), // empêche le scroll
                 children: [
-                  buildListTile(Icons.shopping_bag_outlined, 'Mes cours', () {}),
+                  buildListTile(Icons.menu_book, 'Mes cours', () {
+                    Navigator.pushNamed(context, '/cours');
+                  }),
                   const SizedBox(height: 6),
                   buildListTile(Icons.info_outline, 'Mes informations', () {}),
                   const SizedBox(height: 6),

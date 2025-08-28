@@ -4,8 +4,6 @@ import 'package:flutter/gestures.dart';
 class VerifyCodeScreen extends StatefulWidget {
   const VerifyCodeScreen({Key? key}) : super(key: key);
 
-  // Tu peux enlever cette constante, on va l'utiliser depuis l'état
-  // static const Color blueSkyColor = Color.fromARGB(255, 46, 72, 128);
 
   @override
   State<VerifyCodeScreen> createState() => _VerifyCodeScreenState();
@@ -47,7 +45,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: BackButton(color: blueSkyColor),
+        leading: BackButton(color: const Color.fromARGB(255, 1, 10, 14)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -59,7 +57,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: blueSkyColor,
+                color: const Color.fromARGB(235, 1, 9, 12),
               ),
             ),
             

@@ -161,7 +161,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Section Emploi / Barbillard / Boukarou
+              
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -360,7 +360,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// ------------------- Widgets -------------------
+// ---------------- Widgets -------------
 
 class _ActionButton extends StatelessWidget {
   final IconData icon;

@@ -87,13 +87,13 @@ class CoursesScreen extends StatelessWidget {
     IconButton(
       icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // chatbot au lieu du "?"
       onPressed: () {
-        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+        Navigator.pushNamed(context, '/chat');
       },
     ),
     IconButton(
       icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
       onPressed: () {
-        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+        Navigator.pushNamed(context, '/profil');
       },
     ),
   ],

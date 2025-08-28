@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'detail_barbillard.dart';
-
 class VoirPlusBarbillard extends StatelessWidget {
   final List<Map<String, String>> annonces = [
     {
@@ -35,13 +33,13 @@ class VoirPlusBarbillard extends StatelessWidget {
     },
   ];
 
-  // Associer icône et couleur selon le type
+  
   IconData _getIconForType(String type) {
     switch (type) {
       case "Communiqué":
-        return Icons.campaign; // Haut-parleur
+        return Icons.campaign;
       case "Note de CC":
-        return Icons.assignment_turned_in; // Document validé
+        return Icons.assignment_turned_in;
       default:
         return Icons.info;
     }
@@ -90,19 +88,19 @@ class VoirPlusBarbillard extends StatelessWidget {
     IconButton(
       icon: const Icon(Icons.search, color: Colors.lightBlue),
       onPressed: () {
-        Navigator.pushNamed(context, '/recherche'); // redirige vers recherche
+        Navigator.pushNamed(context, '/recherche');
       },
     ),
     IconButton(
-      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue), // chatbot au lieu du "?"
+      icon: const Icon(Icons.smart_toy_outlined, color: Colors.lightBlue),
       onPressed: () {
-        Navigator.pushNamed(context, '/chat'); // redirige vers chatbot
+        Navigator.pushNamed(context, '/chat');
       },
     ),
     IconButton(
       icon: const Icon(Icons.account_circle, color: Colors.lightBlue),
       onPressed: () {
-        Navigator.pushNamed(context, '/profil'); // redirige vers profil
+        Navigator.pushNamed(context, '/profil');
       },
     ),
   ],
@@ -114,17 +112,7 @@ class VoirPlusBarbillard extends StatelessWidget {
           final annonce = annonces[index];
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => DetailBarbillard(
-                    titre: annonce["titre"]!,
-                    type: annonce["type"]!,
-                    date: annonce["date"]!,
-                    imagePath: annonce["image"]!,
-                  ),
-                ),
-              );
+             
             },
             child: Card(
               elevation: 5,
@@ -136,7 +124,7 @@ class VoirPlusBarbillard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Image en haut avec zoom
+                 
                   GestureDetector(
                     onTap: () => _afficherImage(context, annonce["image"]!),
                     child: ClipRRect(

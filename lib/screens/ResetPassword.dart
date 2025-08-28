@@ -11,7 +11,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   // Remplace cette ligne :
   // static const Color blueSkyColor = Color(0xFF2563EB);
   // Par :
-  static const Color blueSkyColor = Colors.lightBlue; // Utilise la couleur lightBlue native
+  static const Color blueSkyColor = Colors.lightBlue;
 
   static const Color errorColor = Colors.red;
 
@@ -35,7 +35,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       final text = _passwordController.text;
       setState(() {
         _showPasswordIcon = text.isNotEmpty;
-        if (_passwordError != null) _passwordError = null; // clear error on typing
+        if (_passwordError != null) _passwordError = null;
       });
     });
 
@@ -43,7 +43,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       final text = _confirmController.text;
       setState(() {
         _showConfirmIcon = text.isNotEmpty;
-        if (_confirmError != null) _confirmError = null; // clear error on typing
+        if (_confirmError != null) _confirmError = null; 
       });
     });
   }
@@ -177,7 +177,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: blueSkyColor,
+                color: const Color.fromARGB(255, 0, 7, 10),
               ),
             ),
             const SizedBox(height: 8),
