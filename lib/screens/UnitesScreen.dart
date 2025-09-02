@@ -11,9 +11,10 @@ class UnitesScreen extends StatefulWidget {
 class _UnitesScreenState extends State<UnitesScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  String filtreActif = "Cours";
 
   final Map<String, List<Map<String, String>>> semestre1 = {
-    "Cours": List.generate(10, (i) => {
+    "Cours": List.generate(6, (i) => {
           "titre": "Cours ${i + 1}",
           "url": "https://exemple.com/cours${i + 1}.pdf"
         }),
@@ -32,7 +33,7 @@ class _UnitesScreenState extends State<UnitesScreen>
   };
 
   final Map<String, List<Map<String, String>>> semestre2 = {
-    "Cours": List.generate(10, (i) => {
+    "Cours": List.generate(5, (i) => {
           "titre": "Cours S2-${i + 1}",
           "url": "https://exemple.com/sem2_cours${i + 1}.pdf"
         }),
@@ -50,8 +51,6 @@ class _UnitesScreenState extends State<UnitesScreen>
     ],
   };
 
-  String filtreActif = "Cours";
-
   @override
   void initState() {
     super.initState();
@@ -66,7 +65,7 @@ class _UnitesScreenState extends State<UnitesScreen>
         backgroundColor: Colors.white,
         elevation: 0,
         title: const Text(
-          "ITT3-IR",
+          "ITT3 - IR",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -74,27 +73,17 @@ class _UnitesScreenState extends State<UnitesScreen>
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
+              icon: const Icon(Icons.notifications_none, color: Colors.black87),
+              onPressed: () {}),
           IconButton(
-            icon: const Icon(Icons.notifications_none, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.chat, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.person, color: Colors.lightBlue),
-            onPressed: () {},
-          ),
+              icon: const Icon(Icons.person_outline, color: Colors.black87),
+              onPressed: () {}),
         ],
         bottom: TabBar(
           controller: _tabController,
-          labelColor: Colors.purple,
+          labelColor: Colors.lightBlue,
           unselectedLabelColor: Colors.grey,
-          indicatorColor: Colors.purple,
+          indicatorColor: Colors.lightBlue,
           tabs: const [
             Tab(text: "Semestre 1"),
             Tab(text: "Semestre 2"),
@@ -113,76 +102,116 @@ class _UnitesScreenState extends State<UnitesScreen>
 
   Widget _buildSemestreView(Map<String, List<Map<String, String>>> fichiers) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildStatCard("4", "Total Courses", Colors.purple.shade100, Icons.bookmark),
-              _buildStatCard("4", "In Progress", Colors.orange.shade100, Icons.play_circle_fill),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildStatCard("1", "Completed", Colors.green.shade100, Icons.check_circle),
-              _buildStatCard("112h", "Total Hours", Colors.blue.shade100, Icons.access_time),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                for (var cat in fichiers.keys)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        filtreActif = cat;
-                      });
-                    },
-                    child: _buildFilter(cat, filtreActif == cat),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ---- Bannière
+            Container(
+              height: 130,
+              decoration: BoxDecoration(
+                color: Colors.lightBlue.shade100,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text("Explore your lessons",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87)),
+                        SizedBox(height: 8),
+                        Text("Access courses, TD, exams and more",
+                            style: TextStyle(
+                                fontSize: 13, color: Colors.black54)),
+                      ],
+                    ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Icon(Icons.menu_book,
+                        size: 50, color: Colors.lightBlue),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // ---- Search bar
+            TextField(
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                hintText: "Search any document",
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide.none),
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // ---- Catégories
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text("Explore by categories",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                Text("See All",
+                    style: TextStyle(color: Colors.lightBlue, fontSize: 13)),
               ],
             ),
-          ),
-          const SizedBox(height: 24),
-
-          Column(
-            children: fichiers[filtreActif]!
-                .map((fichier) => _buildPdfRow(fichier["titre"]!, fichier["url"]!))
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatCard(String number, String label, Color color, IconData icon) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(right: 8),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, color: Colors.black54, size: 28),
-            const SizedBox(height: 8),
-            Text(
-              number,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const SizedBox(height: 12),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: fichiers.keys
+                    .map((cat) => GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              filtreActif = cat;
+                            });
+                          },
+                          child: _buildCategoryCard(
+                              cat, filtreActif == cat ? Colors.lightBlue : Colors.grey.shade200,
+                              selected: filtreActif == cat),
+                        ))
+                    .toList(),
+              ),
             ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black54, fontSize: 13),
+            const SizedBox(height: 20),
+
+            // ---- Liste horizontale des fichiers
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("$filtreActif available",
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold)),
+                const Text("See All",
+                    style: TextStyle(color: Colors.lightBlue, fontSize: 13)),
+              ],
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 180,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: fichiers[filtreActif]!
+                    .map((fichier) =>
+                        _buildPdfCard(fichier["titre"]!, fichier["url"]!))
+                    .toList(),
+              ),
             ),
           ],
         ),
@@ -190,61 +219,104 @@ class _UnitesScreenState extends State<UnitesScreen>
     );
   }
 
-  Widget _buildFilter(String text, bool selected) {
+  static Widget _buildCategoryCard(String title, Color color,
+      {bool selected = false}) {
+    IconData icon;
+    switch (title) {
+      case "Cours":
+        icon = Icons.menu_book;
+        break;
+      case "TD":
+        icon = Icons.edit_note;
+        break;
+      case "CC":
+        icon = Icons.assignment;
+        break;
+      case "Examen":
+        icon = Icons.fact_check;
+        break;
+      case "Rattrapage":
+        icon = Icons.refresh;
+        break;
+      default:
+        icon = Icons.folder;
+    }
+
     return Container(
-      margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      margin: const EdgeInsets.only(right: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: selected ? Colors.purple : Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(20),
+        color: color,
+        borderRadius: BorderRadius.circular(16),
       ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: selected ? Colors.white : Colors.black,
-        ),
+      child: Row(
+        children: [
+          Icon(icon, color: selected ? Colors.white : Colors.black54),
+          const SizedBox(width: 8),
+          Text(title,
+              style: TextStyle(
+                  color: selected ? Colors.white : Colors.black87,
+                  fontWeight: FontWeight.w500)),
+        ],
       ),
     );
   }
 
-  Widget _buildPdfRow(String titre, String url) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.picture_as_pdf, color: Colors.red, size: 28),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              titre,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+  Widget _buildPdfCard(String titre, String url) {
+    return GestureDetector(
+      onTap: () {
+        String assetPath = _mapTitreToAssetPath(titre);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PdfViewerScreen(
+              assetPath: assetPath,
+              titre: titre,
             ),
           ),
-          TextButton(
-            onPressed: () {
-              String assetPath = _mapTitreToAssetPath(titre);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PdfViewerScreen(
-                    assetPath: assetPath,
-                    titre: titre,
-                  ),
-                ),
-              );
-            },
-            child: const Text(
-              "Ouvrir",
-              style: TextStyle(color: Colors.purple, fontWeight: FontWeight.bold),
+        );
+      },
+      child: Container(
+        width: 140,
+        margin: const EdgeInsets.only(right: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 6,
+              offset: const Offset(0, 3),
             ),
-          ),
-        ],
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                color: Colors.lightBlue.shade100,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
+              ),
+              child: const Center(
+                  child: Icon(Icons.picture_as_pdf,
+                      size: 45, color: Colors.redAccent)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                titre,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 13),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

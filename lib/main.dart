@@ -27,9 +27,7 @@ import 'screens/VerifyCode.dart';
 import 'screens/ResetPassword.dart';
 import 'screens/debut.dart';
 
-
 Future<void> main() async {
-  // Charger la clé API depuis .env
   await dotenv.load(fileName: "assets/config/.env");
 
   runApp(
@@ -118,6 +116,7 @@ class OKampusApp extends StatelessWidget {
         '/recherche': (context) => const RechercheScreen(),
         '/edit-profile': (context) => const EditProfileScreen(),
 
+        // ChatScreen corrigé pour accepter fetchResponse
         '/chat': (context) => ChatScreen(
               fetchResponse: fetchGeminiResponse,
             ),

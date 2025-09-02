@@ -145,7 +145,7 @@ class VoirPlusBarbillard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Ligne icône + type + date
+                        
                         Row(
                           children: [
                             Icon(

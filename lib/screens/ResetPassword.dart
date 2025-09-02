@@ -8,9 +8,7 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  // Remplace cette ligne :
-  // static const Color blueSkyColor = Color(0xFF2563EB);
-  // Par :
+  
   static const Color blueSkyColor = Colors.lightBlue;
 
   static const Color errorColor = Colors.red;
